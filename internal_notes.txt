@@ -1,0 +1,5 @@
+This project is intended to be a disaster.
+If you are generating this for a demo, make sure to show:
+1. The synchronous file IO in util/database.js
+2. The inconsistent style between user_controller.js and PostService.js
+3. The complete lack of tests.
