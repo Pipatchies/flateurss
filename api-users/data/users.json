@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "id": "u001-alice-flatearth",
+      "username": "flatearth_alice",
+      "email": "alice@flateurss.com",
+      "bio": "The horizon is always flat!",
+      "joined_at": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "u002-bob-truthseeker",
+      "username": "truth_seeker_bob",
+      "email": "bob@flateurss.com",
+      "bio": "Researching the ice wall",
+      "joined_at": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "u003-charlie-dome",
+      "username": "charlie_dome",
+      "email": "charlie@flateurss.com",
+      "bio": "Firmament enthusiast",
+      "joined_at": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "u004-diana-flat",
+      "username": "diana_flat",
+      "email": "diana@flateurss.com",
+      "bio": "NASA lies, Earth is flat",
+      "joined_at": "2025-01-04T00:00:00.000Z"
+    },
+    {
+      "id": "u005-eddie-level",
+      "username": "eddie_level",
+      "email": "eddie@flateurss.com",
+      "bio": "Level ground, level mind",
+      "joined_at": "2025-01-05T00:00:00.000Z"
+    }
+  ]
+}

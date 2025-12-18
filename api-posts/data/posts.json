@@ -1,0 +1,26 @@
+{
+  "posts": [
+    {
+      "id": "p001-horizon-proof",
+      "userId": "u001-alice-flatearth",
+      "title": "La preuve du horizon plat",
+      "content": "J'ai observé l'horizon pendant 6 heures... toujours plat !",
+      "created_at": "2025-01-10T10:00:00.000Z"
+    },
+    {
+      "id": "p002-ice-wall",
+      "userId": "u002-bob-truthseeker",
+      "title": "Mon expédition vers le mur de glace",
+      "content": "Ils ne veulent pas qu'on sache ce qu'il y a au-delà...",
+      "created_at": "2025-01-11T14:30:00.000Z"
+    },
+    {
+      "id": "p003-firmament",
+      "userId": "u003-charlie-dome",
+      "title": "Le dôme céleste existe",
+      "content": "Les étoiles sont fixes car attachées au firmament !",
+      "created_at": "2025-01-12T09:15:00.000Z"
+    }
+  ],
+  "comments": []
+}
