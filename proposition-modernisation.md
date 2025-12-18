@@ -31,9 +31,9 @@ Ce document présente la solution technique pour la modernisation de l'applicati
 ## 5. Tests Automatisés
 - **Intégration CI/CD :** Les tests sont exécutés avant tout build d'image. Un échec bloque le pipeline, empêchant le déploiement d'un code défectueux.
 - **Types de tests essentiels :**
-    - **Tests Unitaires** : Tester les algorithmes de matching.
-    - **Tests d'Intégration** : Vérifier que le Gateway communique correctement avec les services.
-    - **Tests de Charge** : S'assurer que le système tient lors d'un pic de trafic de nouveaux platistes.
+    - **Tests Unitaires** : Tester les algorithmes de matching (voir `api-matchmaker/tests/`).
+    - **Tests d'Intégration (Proxification)** : Vérifier dans la CI que la Gateway est configurée pour router vers les bonnes URLs internes (voir `api-gateway/tests/gateway.test.js`).
+    - **Tests de Charge** : S'assurer que le système tient lors d'un pic de trafic.
 
 ## 6. Surveillance et Logging
 - **Surveillance :** Implémentation de **Prometheus** pour la collecte des métriques (taux d'erreur, latence) et **Grafana** pour la visualisation via des dashboards temps réel.
