@@ -1,0 +1,17 @@
+{
+  "name": "api-matchmaker",
+  "version": "1.0.0",
+  "description": "Scientific Matchmaker microservice for Flateurss",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "axios": "^1.6.0"
+  },
+  "author": "Scientific Team",
+  "license": "ISC"
+}

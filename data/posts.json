@@ -1,0 +1,13 @@
+{
+  "posts": [
+    {
+      "post_id": "b5690d29-862c-4a76-9ff3-0970812ceb72",
+      "user_id": "testuser",
+      "title": "Flat Truth",
+      "content": "Evidence provided",
+      "upvotes": 0,
+      "created": "Wed Dec 17 2025 15:20:24 GMT+0000 (Coordinated Universal Time)"
+    }
+  ],
+  "comments": []
+}

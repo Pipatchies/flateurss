@@ -1,4 +1,4 @@
-const db = require('../util/database');
+const db = require('../app/util/database');
 
 module.exports = function matchmaker(req, res) {
     // Naive matching: returns random users that are not me

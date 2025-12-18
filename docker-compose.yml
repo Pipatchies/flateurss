@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  api-users:
+    build: 
+      context: ./api-users
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/usr/src/app/data
+    restart: always
+
+  api-posts:
+    build: 
+      context: ./api-posts
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/usr/src/app/data
+    restart: always
+
+  api-matchmaker:
+    build: 
+      context: ./api-matchmaker
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3003"
+    volumes:
+      - ./data:/usr/src/app/data
+    environment:
+      - PORT=3003
+      - USERS_SERVICE_URL=${USERS_SERVICE_URL}
+    depends_on:
+      - api-users
