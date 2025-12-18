@@ -6,7 +6,7 @@ services:
       context: ./api-users
       dockerfile: Dockerfile
     volumes:
-      - ./data:/usr/src/app/data
+      - ./api-users/data:/usr/src/app/data
     restart: always
 
   api-posts:
@@ -14,15 +14,13 @@ services:
       context: ./api-posts
       dockerfile: Dockerfile
     volumes:
-      - ./data:/usr/src/app/data
+      - ./api-posts/data:/usr/src/app/data
     restart: always
 
   api-matchmaker:
     build: 
       context: ./api-matchmaker
       dockerfile: Dockerfile
-    volumes:
-      - ./data:/usr/src/app/data
     environment:
       - PORT=3003
       - USERS_SERVICE_URL=${USERS_SERVICE_URL}
@@ -36,8 +34,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8600:8600"
-    volumes:
-      - .data:/usr/src/app/data
     environment:
       - PORT=8600
       - USERS_SERVICE_URL=${USERS_SERVICE_URL}
