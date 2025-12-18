@@ -2,9 +2,6 @@
 # CODEOWNERS - Gouvernance du code
 # ==================================================
 
-# Équipe par défaut (tout le dépôt)
-* @dev-team
-
 # ----------------------------------
 # Zone sensible : Matchmaker
 # Validation scientifique obligatoire
