@@ -1,10 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const promClient = require('prom-client');
 const userController = require('./controllers/user_controller');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Metrics collection
+const register = new promClient.Registry();
+promClient.collectDefaultMetrics({ register });
 
 // Middleware
 app.use(cors());
@@ -31,6 +36,12 @@ app.post('/users/:id/profile', userController.updateProfile);
 // Health check
 app.get('/ping', function (req, res) {
     res.send("pong");
+});
+
+// Metrics endpoint
+app.get('/metrics', async (req, res) => {
+    res.set('Content-Type', register.contentType);
+    res.end(await register.metrics());
 });
 
 app.listen(PORT, () => {

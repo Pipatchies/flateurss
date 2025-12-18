@@ -1,9 +1,14 @@
 const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const cors = require('cors');
+const promClient = require('prom-client');
 
 const app = express();
 const PORT = process.env.PORT || 8600;
+
+// Metrics collection
+const register = new promClient.Registry();
+promClient.collectDefaultMetrics({ register });
 
 // Middleware
 app.use(cors());
@@ -24,37 +29,31 @@ app.get('/ping', (req, res) => {
     res.send("pong from gateway");
 });
 
+// Metrics endpoint
+app.get('/metrics', async (req, res) => {
+    res.set('Content-Type', register.contentType);
+    res.end(await register.metrics());
+});
+
 // Proxy Rules
 app.use('/users', createProxyMiddleware({
     target: USERS_SERVICE_URL,
     changeOrigin: true,
-    pathRewrite: {
-        '^/users': '/users', // Keeps /users path
-    },
 }));
 
 app.use('/posts', createProxyMiddleware({
     target: POSTS_SERVICE_URL,
     changeOrigin: true,
-    pathRewrite: {
-        '^/posts': '/posts',
-    },
 }));
 
 app.use('/comments', createProxyMiddleware({
     target: POSTS_SERVICE_URL,
     changeOrigin: true,
-    pathRewrite: {
-        '^/comments': '/comments',
-    },
 }));
 
 app.use('/matchmake', createProxyMiddleware({
     target: MATCHMAKER_SERVICE_URL,
     changeOrigin: true,
-    pathRewrite: {
-        '^/matchmake': '/matchmake',
-    },
 }));
 
 app.listen(PORT, () => {
