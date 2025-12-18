@@ -3,7 +3,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 8800;
+const PORT = process.env.PORT || 8600;
 
 // Middleware
 app.use(cors());
