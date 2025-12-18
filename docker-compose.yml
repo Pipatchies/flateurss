@@ -35,11 +35,11 @@ services:
       context: ./api-gateway
       dockerfile: Dockerfile
     ports:
-      - "8800:8800"
+      - "8600:8600"
     volumes:
       - .data:/usr/src/app/data
     environment:
-      - PORT=8800
+      - PORT=8600
       - USERS_SERVICE_URL=${USERS_SERVICE_URL}
       - POSTS_SERVICE_URL=${POSTS_SERVICE_URL}
       - MATCHMAKER_SERVICE_URL=${MATCHMAKER_SERVICE_URL}
