@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 // Environment variable for User Service URL
-const USERS_SERVICE_URL = process.env.USERS_SERVICE_URL || 'http://localhost:3001/users';
+const USERS_SERVICE_URL = (process.env.USERS_SERVICE_URL || 'http://localhost:3001') + '/users';
 
 exports.getMatch = async (req, res) => {
     // Naive matching: returns random users that are not me
