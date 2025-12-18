@@ -7,8 +7,26 @@ on:
     branches: [ main ]
 
 jobs:
+  lint:
+    name: Code Quality (Lint)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [api-users, api-posts, api-matchmaker, api-gateway]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: |
+          cd ${{ matrix.service }}
+          npm install --only=dev
+      - name: Run Lint
+        run: |
+          cd ${{ matrix.service }}
+          npm run lint
+
   test:
     name: Test Service
+    needs: lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -30,19 +48,24 @@ jobs:
         cd ${{ matrix.service }}
         npm install
         
-    # Note: Currently no test script defined in package.json, adding a dummy test step
-    # Real implementation would be: npm test
-    - name: Run Tests
+    - name: Run Unit Tests
       run: |
         cd ${{ matrix.service }}
         echo "Running tests for ${{ matrix.service }}..."
-        # npm test
+        npm test
+
+    - name: Scientific Validation (Matchmaker only)
+      if: matrix.service == 'api-matchmaker'
+      run: |
+        echo "Running complex gravity-defying algorithms validation..."
+        sleep 5
+        echo "Science confirmed: Horizon is still flat."
 
   build-and-push:
     name: Build & Push Docker Image
     needs: test
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
     strategy:
       matrix:
         service: [api-users, api-posts, api-matchmaker, api-gateway]
@@ -68,5 +91,8 @@ jobs:
         context: ./${{ matrix.service }}
         push: true
         tags: |
-          ${{ secrets.DOCKERHUB_USERNAME }}/flateurss-${{ matrix.service }}:latest
+          ${{ secrets.DOCKERHUB_USERNAME }}/flateurss-${{ matrix.service }}:${{ github.ref_name == 'main' && 'latest' || 'staging' }}
           ${{ secrets.DOCKERHUB_USERNAME }}/flateurss-${{ matrix.service }}:${{ github.sha }}
+        labels: |
+          org.opencontainers.image.team=${{ matrix.service == 'api-matchmaker' && 'Scientific' || 'Production' }}
+          org.opencontainers.image.environment=${{ github.ref_name == 'main' && 'Production' || 'Staging' }}

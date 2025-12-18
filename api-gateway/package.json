@@ -5,12 +5,18 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "lint": "eslint .",
+    "test": "mocha tests/**/*.test.js"
   },
   "dependencies": {
     "express": "^4.18.2",
     "http-proxy-middleware": "^2.0.6",
     "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "mocha": "^10.2.0"
   },
   "author": "DevOps Team",
   "license": "ISC"
