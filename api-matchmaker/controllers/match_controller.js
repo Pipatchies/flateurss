@@ -21,7 +21,7 @@ exports.getMatch = async (req, res) => {
         const ret = matches.map(m => {
             return {
                 name: m.username,
-                match_score: Math.floor(Math.random() * 100) + "% flat"
+                match_score: Math.floor(Math.random() * 100) + "% flat !"
             }
         });
 
