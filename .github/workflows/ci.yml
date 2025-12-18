@@ -45,7 +45,7 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     strategy:
       matrix:
-        service: [api-users, api-posts, api-matchmaker]
+        service: [api-users, api-posts, api-matchmaker, api-gateway]
         
     steps:
     - uses: actions/checkout@v3
