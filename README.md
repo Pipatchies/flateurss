@@ -1,37 +1,41 @@
-# Flateurss - Legacy Monolith
+# Flateurss - Microservices Edition
 
-Welcome to Flateurss, the premier platform for truth-seekers around the globe (which is flat).
+Nouvelle version de l'application Flateurss, modernisée en microservices containerisés.
 
-## Setup
-1. Install nodejs (v14 or whatever works).
-2. Run `npm install`.
+## Architecture
 
-## Running
-`npm start` or just `node server.js`.
-Server runs on port 3002 by default.
+L'application est décomposée en 3 microservices :
 
-## API Endpoints
-- `GET /` - Homepage
-- `GET /users` - List all users
-- `POST /users` - Create user
-- `GET /users/:id` - Get user
-- `POST /users/:id/profile` - Update profile
-- `GET /posts` - Get proofs
-- `POST /posts` - Add a proof
-- `GET /matchmake/:userId` - Find flat-soulmates
+- **`api-users`** (Port 3001) : Gestion des utilisateurs.
+- **`api-posts`** (Port 3002) : Gestion du contenu (Preuves/Commentaires).
+- **`api-matchmaker`** (Port 3003) : Algorithmes de matching (Scientific Team).
 
-## Example Usage
+## Développement Local
+
+### Prérequis
+- Docker & Docker Compose
+- Node.js 20 (optionnel, pour tests locaux sans Docker)
+
+### Lancement
+Utilisez Docker Compose pour lancer toute la stack :
+
 ```bash
-# Create user
-curl -X POST -H "Content-Type: application/json" -d '{"username": "truth_seeker_99", "email": "bob@flat.earth"}' http://localhost:3000/users
-
-# List posts
-curl http://localhost:3002/posts
+docker-compose up --build
 ```
 
-## Known Technical Debt (DO NOT TOUCH UNLESS REQUESTED)
-- **Permissions**: Anyone can do anything. Auth is "coming soon".
-- **Performance**: It gets slow when the database file grows. We don't know why (probably the sync IO).
-- **Code Style**: Written by 5 different interns. Some files use `var`, some `const`. Variable naming is a mess.
-- **Database**: It's just a JSON file. If two people write at the same time, we might lose data.
-- **Error Handling**: Sometimes it crashes, sometimes it returns 200 OK with an error message.
+Les APIs seront accessibles sur `http://localhost:300X`.
+
+## Déploiement
+
+### CI/CD
+Le pipeline est défini dans `.github/workflows/ci.yml`. Il automatise :
+1. Les tests unitaires.
+2. Le build des images Docker.
+3. Le push vers Docker Hub.
+
+### Kubernetes
+Les manifestes de déploiement pour la production sont dans le dossier `k8s/`.
+
+```bash
+kubectl apply -f k8s/
+```
