@@ -36,5 +36,15 @@ Ce document présente la solution technique pour la modernisation de l'applicati
     - **Tests de Charge** : S'assurer que le système tient lors d'un pic de trafic.
 
 ## 6. Surveillance et Logging
-- **Surveillance :** Implémentation de **Prometheus** pour la collecte des métriques (taux d'erreur, latence) et **Grafana** pour la visualisation via des dashboards temps réel.
-- **Logging :** Centralisation des logs avec une stack **Loki/Grafana** ou **ELK**. Utilisation de logs structurés (JSON) pour faciliter l'analyse et identifier rapidement l'origine d'un crash dans un microservice spécifique.
+L'application est désormais équipée d'une stack complète d'observabilité (PLG Stack) :
+- **Surveillance (Prometheus & Grafana) :** 
+    - Chaque microservice expose `/metrics` via `prom-client`.
+    - **Prometheus** collecte ces métriques toutes les 15s.
+    - **Grafana** (port 3000) permet de visualiser les performances.
+- **Logging Centralisé (Loki & Promtail) :** 
+    - **Promtail** surveille les logs Docker via `/var/run/docker.sock`.
+    - **Loki** indexe les logs pour une recherche ultra-rapide.
+    - Consultation via l'onglet "Explore" dans Grafana.
+
+> [!IMPORTANT]
+> Les données de surveillance sont persistées localement dans `./monitoring/loki/data` et `./monitoring/grafana/data`, mais ces dossiers sont exclus de Git pour éviter de surcharger le dépôt.

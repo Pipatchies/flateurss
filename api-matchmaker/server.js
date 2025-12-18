@@ -1,9 +1,14 @@
 const express = require('express');
 const cors = require('cors');
+const promClient = require('prom-client');
 const matchController = require('./controllers/match_controller');
 
 const app = express();
 const PORT = process.env.PORT || 3003;
+
+// Metrics collection
+const register = new promClient.Registry();
+promClient.collectDefaultMetrics({ register });
 
 // Middleware
 app.use(cors());
@@ -26,6 +31,12 @@ app.get('/matchmake/:uid', matchController.getMatch);
 // Health check
 app.get('/ping', function (req, res) {
     res.send("pong");
+});
+
+// Metrics endpoint
+app.get('/metrics', async (req, res) => {
+    res.set('Content-Type', register.contentType);
+    res.end(await register.metrics());
 });
 
 app.listen(PORT, () => {
